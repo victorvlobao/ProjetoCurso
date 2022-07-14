@@ -66,7 +66,7 @@ public class CursoService {
 	 * LOGGER.info("Curso Buscado por Descrição com Sucesso"); return
 	 * ResponseEntity.status(HttpStatus.OK).body(response); }
 	 */
-	public List<Curso> consultar(String descricao, LocalDate dataInicio, LocalDate dataTermino) {
+	public List<Curso> consultarGeral(String descricao, LocalDate dataInicio, LocalDate dataTermino) {
 		System.out.println(dataInicio);
 		CriteriaBuilder criteria = entity.getCriteriaBuilder();
 		CriteriaQuery<Curso> criteriaQuery = criteria.createQuery(Curso.class);
@@ -100,6 +100,8 @@ public class CursoService {
 		return query.getResultList();
 
 	}
+	
+	
 
 	// -----------------------------------------------------------------------------------------CADASTRA
 	// FUNCIONANDO
@@ -107,6 +109,7 @@ public class CursoService {
 		validaData1(curso);
 		validaData2(curso);
 		validaData3(curso);
+		validaCurso(curso);
 		repository.save(curso);
 	}
 
@@ -134,6 +137,16 @@ public class CursoService {
 		}
 
 	}
+	
+	public void validaCurso(Curso curso) {
+
+        for (Curso aux : repository.findAll()) {
+            if (aux.getDescricao().equals(curso.getDescricao())) {
+                throw new RuntimeException("Este curso já existe.");
+            }
+        }
+
+    }
 
 	// -----------------------------------------------------------------------------------------ATUALIZA
 	// FUNCIONANDO

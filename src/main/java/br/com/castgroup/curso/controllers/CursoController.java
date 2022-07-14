@@ -68,6 +68,7 @@ public class CursoController {
 		LOGGER.info("Cursos Buscados por ID com Sucesso");
 		return service.buscaById(idCurso);
 	}
+	
 	/*
 	@GetMapping("/descricao")
 	public ResponseEntity<List<Curso>> getByDescricao(String descricao){
@@ -80,10 +81,12 @@ public class CursoController {
 	public ResponseEntity<List<Curso>> listarTudo(@RequestParam(required = false) String descricao,
 			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataInicio,
 			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataTermino) {
-		List<Curso> curso = service.consultar(descricao, dataInicio, dataTermino);
+		List<Curso> curso = service.consultarGeral(descricao, dataInicio, dataTermino);
 
 		return ResponseEntity.ok().body(curso);
 	}
+	
+	
 	
 
 	//----------------------------------------------------------------------------------------DELETAR 
