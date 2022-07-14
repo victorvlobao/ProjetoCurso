@@ -4,7 +4,6 @@ package br.com.castgroup.curso.entity;
 
 import java.time.LocalDate;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,18 +13,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
 @Data
 @Table(name = "TB_curso")
 @Entity
-public class Curso {
+public class Curso{
+
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,19 +32,16 @@ public class Curso {
 	@Column(name = "descricao", nullable = false)
 	private String descricao;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(nullable = false)
+	@JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataInicio;
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(nullable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataTermino;
 	
+    @Column(name = "quantidadeAlunos")
 	private Integer quantidadeAlunos;
-	
+    
 	@ManyToOne
-	@JsonIgnore
-	@JoinColumn(name="fk_categoria")
-	private Categoria categoria;
-	
+	@JoinColumn(name="categoria")
+	private Categoria categoria;	
 }
